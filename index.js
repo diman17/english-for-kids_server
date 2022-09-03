@@ -1,16 +1,15 @@
 import express from 'express';
 import * as dotenv from 'dotenv';
-import db from './db.js';
+import categoryRouter from './src/routes/category.route.js'
+import cors from 'cors'
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT;
 
-app.get('/categories', async (req, res) => {
-  const categories = await db.query('SELECT * FROM categories');
-  res.json(categories.rows);
-});
+app.use(cors())
+app.use('/api', categoryRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
