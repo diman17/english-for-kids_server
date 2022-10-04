@@ -16,6 +16,13 @@ class CardController {
     );
     res.json(count.rows[0].count);
   }
+
+  async updateCard(req, res) {
+    const { id, image, audio, audioName, text, translate } = req.body;
+    await db.query(
+      `UPDATE cards SET image = '${image}', audio = '${audio}', audio_name = '${audioName}', text = '${text}', translate = '${translate}' WHERE card_id = ${id}`,
+    );
+  }
 }
 
 export default new CardController();
