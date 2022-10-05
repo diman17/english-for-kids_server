@@ -26,9 +26,7 @@ class CategoryController {
 
   async deleteCategory(req, res) {
     const { id } = req.body;
-    await db.query(
-      `DELETE FROM cards WHERE category_id = ${id}`
-    )
+    await db.query(`DELETE FROM cards WHERE category_id = ${id}`);
     const categories = await db.query(
       `DELETE FROM categories WHERE category_id = ${id}`,
     );

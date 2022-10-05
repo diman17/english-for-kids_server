@@ -28,6 +28,12 @@ class CardController {
     );
     res.json(newCard.command);
   }
+
+  async deleteCard(req, res) {
+    const { id } = req.body;
+    const card = await db.query(`DELETE FROM cards WHERE card_id = ${id}`);
+    res.json(card.command);
+  }
 }
 
 export default new CardController();
