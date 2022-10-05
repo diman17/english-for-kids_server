@@ -8,7 +8,7 @@ class CategoryController {
     res.json(categories.rows);
   }
 
-  async updateCategoryName(req, res) {
+  async updateCategory(req, res) {
     const { id, name } = req.body;
     const categories = await db.query(
       `UPDATE categories SET name = '${name}' WHERE category_id=${id}`,
