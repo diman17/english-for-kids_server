@@ -2,7 +2,9 @@ import db from '../db.js';
 
 class CategoryController {
   async getCategories(req, res) {
-    const categories = await db.query('SELECT * FROM categories');
+    const categories = await db.query(
+      'SELECT * FROM categories ORDER BY category_id ASC',
+    );
     res.json(categories.rows);
   }
 
