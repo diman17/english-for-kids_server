@@ -20,6 +20,14 @@ class CardController {
       `UPDATE cards SET image = '${image}', audio = '${audio}', audio_name = '${audioName}', text = '${text}', translate = '${translate}' WHERE card_id = ${id}`,
     );
   }
+
+  async createCard(req, res) {
+    const { image, audio, audioName, text, translate, categoryId } = req.body;
+    const newCard = await db.query(
+      `INSERT INTO cards (image, audio, audio_name, text, translate, category_id) VALUES ('${image}', '${audio}', '${audioName}', '${text}', '${translate}', ${categoryId})`,
+    );
+    res.json(newCard.command);
+  }
 }
 
 export default new CardController();
