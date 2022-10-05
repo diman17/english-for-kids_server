@@ -13,6 +13,14 @@ class CategoryController {
     );
     res.json(categories.command);
   }
+
+  async createCategory(req, res) {
+    const { name } = req.body;
+    const categories = await db.query(
+      `INSERT INTO categories (name) VALUES ('${name}')`,
+    );
+    res.json(categories.command);
+  }
 }
 
 export default new CategoryController();
