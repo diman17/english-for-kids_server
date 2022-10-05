@@ -23,6 +23,17 @@ class CategoryController {
     );
     res.json(categories.command);
   }
+
+  async deleteCategory(req, res) {
+    const { id } = req.body;
+    await db.query(
+      `DELETE FROM cards WHERE category_id = ${id}`
+    )
+    const categories = await db.query(
+      `DELETE FROM categories WHERE category_id = ${id}`,
+    );
+    res.json(categories.command);
+  }
 }
 
 export default new CategoryController();

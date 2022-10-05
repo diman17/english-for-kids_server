@@ -6,5 +6,6 @@ const router = new Router();
 router.get('/categories', categoryController.getCategories);
 router.post('/categories', categoryController.createCategory);
 router.put('/categories', categoryController.updateCategory);
+router.delete('/categories', categoryController.deleteCategory);
 
 export default router;
