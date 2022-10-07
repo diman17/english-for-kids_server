@@ -5,8 +5,8 @@ const router = new Router();
 
 router.get('/cards', CardController.getAllCards);
 router.get('/cards/:id', CardController.getCardsByCategoryId);
-router.put('/cards/', CardController.updateCard);
 router.post('/cards/', CardController.createCard);
+router.put('/cards/', CardController.updateCard);
 router.delete('/cards/', CardController.deleteCard);
 
 export default router;

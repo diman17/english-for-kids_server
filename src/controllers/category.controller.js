@@ -10,27 +10,27 @@ class CategoryController {
 
   async updateCategory(req, res) {
     const { id, name } = req.body;
-    const categories = await db.query(
-      `UPDATE categories SET name = '${name}' WHERE category_id=${id}`,
+    const updatedCategory = await db.query(
+      `UPDATE categories SET name = '${name}' WHERE category_id=${id} RETURNING *`,
     );
-    res.json(categories.command);
+    res.json(updatedCategory.rows[0]);
   }
 
   async createCategory(req, res) {
     const { name } = req.body;
-    const categories = await db.query(
-      `INSERT INTO categories (name) VALUES ('${name}')`,
+    const newCategory = await db.query(
+      `INSERT INTO categories (name) VALUES ('${name}') RETURNING *`,
     );
-    res.json(categories.command);
+    res.json(newCategory.rows[0]);
   }
 
   async deleteCategory(req, res) {
     const { id } = req.body;
     await db.query(`DELETE FROM cards WHERE category_id = ${id}`);
-    const categories = await db.query(
-      `DELETE FROM categories WHERE category_id = ${id}`,
+    const deletedCategory = await db.query(
+      `DELETE FROM categories WHERE category_id = ${id} RETURNING *`,
     );
-    res.json(categories.command);
+    res.json(deletedCategory.rows[0]);
   }
 }
 

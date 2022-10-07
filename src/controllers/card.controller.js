@@ -16,23 +16,26 @@ class CardController {
 
   async updateCard(req, res) {
     const { id, image, audio, audioName, text, translate } = req.body;
-    await db.query(
-      `UPDATE cards SET image = '${image}', audio = '${audio}', audio_name = '${audioName}', text = '${text}', translate = '${translate}' WHERE card_id = ${id}`,
+    const updatedCard = await db.query(
+      `UPDATE cards SET image = '${image}', audio = '${audio}', audio_name = '${audioName}', text = '${text}', translate = '${translate}' WHERE card_id = ${id} RETURNING *`,
     );
+    res.json(updatedCard.rows[0]);
   }
 
   async createCard(req, res) {
     const { image, audio, audioName, text, translate, categoryId } = req.body;
     const newCard = await db.query(
-      `INSERT INTO cards (image, audio, audio_name, text, translate, category_id) VALUES ('${image}', '${audio}', '${audioName}', '${text}', '${translate}', ${categoryId})`,
+      `INSERT INTO cards (image, audio, audio_name, text, translate, category_id) VALUES ('${image}', '${audio}', '${audioName}', '${text}', '${translate}', ${categoryId}) RETURNING *`,
     );
-    res.json(newCard.command);
+    res.json(newCard.rows[0]);
   }
 
   async deleteCard(req, res) {
     const { id } = req.body;
-    const card = await db.query(`DELETE FROM cards WHERE card_id = ${id}`);
-    res.json(card.command);
+    const deletedCard = await db.query(
+      `DELETE FROM cards WHERE card_id = ${id} RETURNING *`,
+    );
+    res.json(deletedCard.rows[0]);
   }
 }
 
