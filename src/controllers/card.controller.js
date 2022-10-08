@@ -9,6 +9,12 @@ class CardController {
     res.json(cards.rows);
   }
 
+  async getCardById(req, res) {
+    const { id } = req.params;
+    const card = await db.query(`SELECT * FROM cards WHERE card_id = ${id}`);
+    res.json(card.rows[0]);
+  }
+
   async getAllCards(req, res) {
     const cards = await db.query(`SELECT * FROM cards ORDER BY card_id ASC`);
     res.json(cards.rows);
