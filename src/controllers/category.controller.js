@@ -8,6 +8,14 @@ class CategoryController {
     res.json(categories.rows);
   }
 
+  async getCategoryById(req, res) {
+    const { id } = req.params;
+    const category = await db.query(
+      `SELECT * FROM categories WHERE category_id = ${id}`,
+    );
+    res.json(category.rows[0]);
+  }
+
   async updateCategory(req, res) {
     const { id, name } = req.body;
     const updatedCategory = await db.query(
